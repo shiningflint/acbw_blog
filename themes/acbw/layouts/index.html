@@ -1,0 +1,26 @@
+{{ define "main" }}
+<main class="post-wrap">
+  <ul class="list-wrap">
+  {{ range $.Site.RegularPages.ByPublishDate.Reverse }}
+    <li class="list-item">
+      <div class="post-item">
+        <p class="post-item__imgwrap">
+        <a href="{{ .RelPermalink }}">
+        <img src="{{ .Param "header_image" }}" alt="{{ .Title }} thumb" />
+        </a>
+        </p>
+        <div class="post-item__txtwrap">
+          <p><a href="{{ .RelPermalink }}" class="post-item__link">{{ .Title }}</a></p>
+          <div class="flex">
+            <p class="post-item__date">{{ .PublishDate.Format "Mon, 2006/01/02" }}</p>
+            <p class="post-item__readwrap">
+              <a href="{{ .RelPermalink }}" class="post-item__read">Read post</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </li>
+  {{ end }}
+  </ul>
+</main>
+{{ end }}

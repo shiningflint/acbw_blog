@@ -1,0 +1,23 @@
+<head>
+  {{ $title := print .Site.Title " | " .Title }}
+  {{ if .IsHome }}{{ $title = .Site.Title }}{{ end }}
+  <title>{{ $title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="ACBW blog. Pictures while cycling around Tokyo. Tokyo cycling diary.">
+  <meta name="keywords" content="acbw, tokyo, cycling, diary">
+  <meta charset="utf-8">
+  <meta name="author" content="Adam Christopher Backlas Widjaja">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- CSS -->
+  {{ $scss := resources.Get "scss/main.scss" }}
+  {{ $scss_options := (dict "targetPath" "css/style.css" "outputStyle" "compressed" "enableSourceMap" true) }}
+  {{ $style := $scss | resources.ToCSS $scss_options | resources.Fingerprint "sha512" }}
+  <link rel="stylesheet" href="{{ $style.Permalink }}" media="screen" integrity="{{ $style.Data.Integrity }}">
+
+  <!-- JS -->
+  {{ $js_options := (dict "minify" true) }}
+  {{ $js := resources.Get "js/main.js" | js.Build $js_options | resources.Fingerprint "sha512" }}
+  <script type="text/javascript" src="{{ $js.Permalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+</head>
