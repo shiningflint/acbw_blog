@@ -1,0 +1,16 @@
+{{ define "main" }}
+<div class="post-header">
+  <div class="post-image">
+    <h3>Maps header</h3>
+  </div>
+</div>
+
+<main class="post-wrap">
+  <div class="post-wrap__inner">
+    <h1 class="post-title"><span class="post-title__span">{{ .Title }}</span></h1>
+    <div class="post-content">
+      {{ .Content }}
+    </div>
+  </div>
+</main>
+{{ end }}

@@ -1,7 +1,7 @@
 {{ define "main" }}
 <main class="post-wrap">
   <ul class="list-wrap">
-  {{ range $.Site.RegularPages.ByPublishDate.Reverse }}
+  {{ range $page := (where $.Site.RegularPages.ByPublishDate.Reverse "Section" "blog") }}
     <li class="list-item">
       <div class="post-item">
         <p class="post-item__imgwrap">

@@ -19,5 +19,10 @@
   <!-- JS -->
   {{ $js_options := (dict "minify" true) }}
   {{ $js := resources.Get "js/main.js" | js.Build $js_options | resources.Fingerprint "sha512" }}
-  <script type="text/javascript" src="{{ $js.Permalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+  {{ if in .Section "maps" }}
+    <script type="text/javascript" src="/vendor/OpenLayers.js"></script>
+  {{ end }}
+  {{ if (and (in .Section "maps") (eq .Kind "page")) }}
+    <script type="text/javascript" src="/maps/OpenLayersInit.js"></script>
+  {{ end }}
 </head>
