@@ -55,24 +55,28 @@
     vector
   ];
 
-  let map = null
-
-  // The source won't load unless the layer is visible on the map.
-  // Listen to 'addfeature' event then re-center and re-zoom
-  vector.getSource().on('addfeature', function(){
-    map.getView().fit(vector.getSource().getExtent());
-    map.getView().setZoom(map.getView().getZoom() - 1);
-  })
-
   document.addEventListener("DOMContentLoaded", function () {
-    map = new ol.Map({
+    {{ if and .Params.map.lat .Params.map.lng }}
+    const center = [{{ .Params.map.lat }}, {{ .Params.map.lng }}]
+    {{ else }}
+    const center = [0, 0]
+    {{ end }}
+
+    const map = new ol.Map({
       layers: layerConfig,
       target: "mainMap",
       view: new ol.View({
-        center: [0, 0],
+        center: center,
         zoom: 16,
       }),
     });
+
+    // The source won't load unless the layer is visible on the map.
+    // Listen to 'addfeature' event then re-center and re-zoom
+    vector.getSource().on('addfeature', function(){
+      map.getView().fit(vector.getSource().getExtent());
+      map.getView().setZoom(map.getView().getZoom() - 1);
+    })
   });
 </script>
 {{ end }}
