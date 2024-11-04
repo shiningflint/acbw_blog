@@ -57,9 +57,10 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     {{ if and .Params.map.lat .Params.map.lng }}
-    const center = [{{ .Params.map.lat }}, {{ .Params.map.lng }}]
+    // Need to convert from EPSG:4326 projection standard to EPSG:3857
+    const center = ol.proj.transform([{{ .Params.map.lat }}, {{ .Params.map.lng }}], "EPSG:4326", "EPSG:3857");
     {{ else }}
-    const center = [0, 0]
+    const center = [0, 0];
     {{ end }}
 
     const map = new ol.Map({
