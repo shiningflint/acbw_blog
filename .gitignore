@@ -1,3 +1,4 @@
 .env
 blog/public/*
 blog/resources/*
+gpx_tool/pkg
