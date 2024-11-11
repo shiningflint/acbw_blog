@@ -1,3 +1,3 @@
 .env
-public/*
-resources/*
+blog/public/*
+blog/resources/*
